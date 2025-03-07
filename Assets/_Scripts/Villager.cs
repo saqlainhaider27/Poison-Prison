@@ -4,20 +4,15 @@ using UnityEngine.AI;
 public abstract class Villager : MonoBehaviour {
 
     protected NavMeshAgent _agent;
-    private float _minWalkDistance = 5;
-    private float _maxWalkDistance = 20;
+    [SerializeField] private float _minWalkDistance = 5;
+    [SerializeField] private float _maxWalkDistance = 20;
 
-    public float Speed {
-        get;
-        private set;
-    } = 2f;
     public VillagerStates CurrentState {
         get;
         set;
     } = VillagerStates.Idle;
     private void Awake() {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = Speed;
     }
     public void SetRandomDestination() {
         float distance = UnityEngine.Random.Range(_minWalkDistance, _maxWalkDistance);
@@ -33,14 +28,10 @@ public abstract class Villager : MonoBehaviour {
 
     public bool IsStopped() {
         if (_agent.remainingDistance <= _agent.stoppingDistance) {
-            // Villager has reached the destination
-            // Stop the agent
-            _agent.isStopped = true;
+            return true;
         }
         else {
-            _agent.isStopped = false;
+            return false;
         }
-        return _agent.isStopped;
-
     }
 }

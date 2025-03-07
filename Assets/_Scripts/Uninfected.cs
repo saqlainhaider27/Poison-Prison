@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 
-public class Uninfected : Villager {
+public class Uninfected : Villager, IInfectable {
     private const float MOVE_DELAY = 3f;
-    private float timeToNextAction;
+    private float _timeToNextAction;
+    [SerializeField] private GameObject _infectedNPCPrefab;
     private void Update() {
        
         HandleIdleAndWalkingTransition(MOVE_DELAY);
@@ -13,10 +13,10 @@ public class Uninfected : Villager {
     public void HandleIdleAndWalkingTransition(float waitDuration) {
         if (IsStopped() && CurrentState != VillagerStates.Idle) {
             CurrentState = VillagerStates.Idle;
-            timeToNextAction = Time.time + waitDuration;
+            _timeToNextAction = Time.time + waitDuration;
         }
 
-        if (IsStopped() && Time.time >= timeToNextAction) {
+        if (IsStopped() && Time.time >= _timeToNextAction) {
             CurrentState = VillagerStates.Walking;
             SetRandomDestination();
         }
@@ -27,6 +27,8 @@ public class Uninfected : Villager {
         // TODO:
         // Destroy the uninfected villager
         // Spawn an infected
+        GameObject gameObject = Instantiate(_infectedNPCPrefab,transform.position, transform.rotation);
+        Destroy(this.gameObject);
 
     }
 }
