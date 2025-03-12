@@ -17,5 +17,6 @@ public class VillagerAnimator : MonoBehaviour {
 
     private void Villager_OnSpeedChanged(float speed) {
         _anim.SetFloat(SPEED, speed, 0.1f, Time.deltaTime);
+        //_anim.SetFloat(SPEED, speed);
     }
 } 

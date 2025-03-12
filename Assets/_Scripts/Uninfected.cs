@@ -9,18 +9,19 @@ public class Uninfected : Villager, IInfectable {
     private void Update() {       
         HandleIdleAndWalkingTransition(MOVE_DELAY);
     }
-
-
     public void HandleIdleAndWalkingTransition(float waitDuration) {
-        if (IsStopped() && CurrentState != VillagerStates.Idle) {
+        if (IsStopped()) {
             CurrentState = VillagerStates.Idle;
+        }
+        else {
+            CurrentState = VillagerStates.Walking;
+        }
+
+        if (Time.time >= _timeToNextAction) {
+            SetRandomDestination();
             _timeToNextAction = Time.time + waitDuration;
         }
 
-        if (IsStopped() && Time.time >= _timeToNextAction) {
-            CurrentState = VillagerStates.Walking;
-            SetRandomDestination();
-        }
     }
 
     public void Infect() {

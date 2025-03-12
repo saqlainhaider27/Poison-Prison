@@ -5,14 +5,6 @@ public class InputController : Singleton<InputController>{
     
     private InputActions _inputActions;
 
-    public event EventHandler OnJumpPerformed;
-    public event EventHandler OnSprintPerformed;
-    public event EventHandler OnAttackPerformed;
-
-    public event EventHandler OnJumpCanceled;
-    public event EventHandler OnSprintCanceled;
-    public event EventHandler OnAttackCanceled;
-
     private void Awake() {
         _inputActions = new InputActions();
     }
