@@ -15,6 +15,8 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField] private float _lacunarity;
     [SerializeField] private int _seed;
     [SerializeField] private Vector2 _offset;
+    [SerializeField] private float _meshHeightMultiplier;
+    [SerializeField] private AnimationCurve _meshHeightCurve;
 
     [SerializeField] private TerrainType[] _regions;
 
@@ -48,7 +50,7 @@ public class MapGenerator : MonoBehaviour {
             mapDisplay.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, _width, _height));
         }
         else if (_drawMode == DrawMode.Mesh) {
-            mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap), TextureGenerator.TextureFromColorMap(colorMap, _width, _height));
+            mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, _meshHeightMultiplier, _meshHeightCurve), TextureGenerator.TextureFromColorMap(colorMap, _width, _height));
         }
     }
     private void OnValidate() {
