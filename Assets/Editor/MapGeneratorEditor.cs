@@ -8,9 +8,9 @@ public class MapGeneratorEditor : Editor{
             if (mapGenerator.AutoUpdate) {
                 mapGenerator.GenerateMap();
             }
-            if (GUILayout.Button("Generate")) {
-                mapGenerator.GenerateMap();
-            }
+        }
+        if (GUILayout.Button("Generate")) {
+            mapGenerator.GenerateMap();
         }
     }
 }

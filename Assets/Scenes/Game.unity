@@ -3975,9 +3975,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd0bd73cf113fa4e81c1b779db2d4fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 25
-  height: 25
-  scale: 4
+  _drawMode: 1
+  _width: 25
+  _height: 25
+  _scale: 30
+  _octaves: 4
+  _persistance: 0.3
+  _lacunarity: 2
+  _seed: 0
+  _offset: {x: 0, y: 0}
+  _regions:
+  - name: Water
+    height: 0.4
+    color: {r: 0, g: 0.70135355, b: 1, a: 0}
+  - name: Land
+    height: 1
+    color: {r: 0.092489764, g: 0.4716981, b: 0, a: 0}
   <AutoUpdate>k__BackingField: 1
 --- !u!4 &781572210
 Transform:
@@ -4006,7 +4019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b17d08862526d44bb58877ee7a6ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureRenderer: {fileID: 1438498054}
+  _textureRenderer: {fileID: 1438498054}
 --- !u!1 &783163673
 GameObject:
   m_ObjectHideFlags: 0
