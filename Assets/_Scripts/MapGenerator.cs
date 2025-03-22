@@ -25,7 +25,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     public void GenerateMap() {
-        float[,] noiseMap = Noise.GenerateNoiseMap(_width, _height,_seed, _scale, _octaves, _persistance, _lacunarity, _offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(_width, _height, _seed, _scale, _octaves, _persistance, _lacunarity, _offset);
 
         Color[] colorMap = new Color[_width * _height];
 
@@ -45,7 +45,10 @@ public class MapGenerator : MonoBehaviour {
             mapDisplay.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
         }
         else if (_drawMode == DrawMode.ColorMap) {
-            mapDisplay.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, _width,_height));
+            mapDisplay.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, _width, _height));
+        }
+        else if (_drawMode == DrawMode.Mesh) {
+            mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap), TextureGenerator.TextureFromColorMap(colorMap, _width, _height));
         }
     }
     private void OnValidate() {
