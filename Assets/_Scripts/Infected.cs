@@ -4,11 +4,15 @@ public class Infected : Villager{
 
     [SerializeField] private float _searchRadius = 10f;
     [SerializeField] private LayerMask _villagerLayer;
-
+    private bool _villagerVisible;
     // The villager will run after the player
     private void Update() {
         if (IsStopped()) {
             CurrentState = VillagerStates.Idle;
+            if (!_villagerVisible) {
+                // Stopped at player
+                Player.Instance.Infect();
+            }
         }
         else {
             CurrentState = VillagerStates.Running;
@@ -19,8 +23,10 @@ public class Infected : Villager{
         if (colliders.Length <= 0) {
             // If no villagers in search radius follow the player
             SetDestinationToPlayer();
+            _villagerVisible = false;
         }
         else {
+            _villagerVisible = true;
             foreach (Collider collider in colliders) {
                 if (collider.TryGetComponent<IInfectable>(out IInfectable infectable)) {
                     _agent.SetDestination(collider.transform.position);

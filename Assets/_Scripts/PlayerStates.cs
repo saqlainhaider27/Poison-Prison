@@ -1,5 +1,6 @@
 public enum PlayerStates {
     Idle,
     Running,
-    Falling
+    Falling,
+    Died
 }

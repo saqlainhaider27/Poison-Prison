@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour {
         _characterController = GetComponent<CharacterController>();
     }
     private void Update() {
+        if (_player.CurrentState == PlayerStates.Died) {
+            return;
+        }
         AddGravity();
         Vector2 inputVector = InputController.Instance.GetInputVectorNormalized();
         Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
