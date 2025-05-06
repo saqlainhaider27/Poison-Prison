@@ -609,8 +609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d75dbcd762f4e142aca1439a34a9191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnBoundsMin: {x: -100, y: 0, z: -100}
-  _spawnBoundsMax: {x: 100, y: 0, z: 100}
+  _spawnBoundsMin: {x: -40, y: 0, z: -40}
+  _spawnBoundsMax: {x: 40, y: 0, z: 40}
   _excludeBoundsMin: {x: 0, y: 0, z: 0}
   _excludeBoundsMax: {x: 0, y: 0, z: 0}
   _prefabList:

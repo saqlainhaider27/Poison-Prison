@@ -72,9 +72,9 @@ MonoBehaviour:
   _minWalkDistance: 5
   _maxWalkDistance: 20
   _searchRadius: 10
-  _villagerLayer:
+  _searchLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
 --- !u!136 &7078397912485035692
 CapsuleCollider:
   m_ObjectHideFlags: 0

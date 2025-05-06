@@ -2,45 +2,49 @@ using UnityEngine;
 
 public class Infected : Villager{
 
-    [SerializeField] private float _searchRadius = 10f;
-    [SerializeField] private LayerMask _villagerLayer;
-    private bool _villagerVisible;
+    //private enum FollowTarget {
+    //    Villager,
+    //    Player
+    //}
+    //private FollowTarget _currentFollow = FollowTarget.Villager;
+
+    private float _timeToNextAction;
+
+    [SerializeField] private float _searchRadius = 500f;
+    [SerializeField] private LayerMask _searchLayer;
+
+    private IInfectable _target;
+    private float _previousDistance = 10000f;
+    private float _waitDuration = 3f;
+
     // The villager will run after the player
     private void Update() {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _searchRadius, _searchLayer);
+        foreach (Collider collider in colliders) {
+            // Check the infectable closest to the infected
+            if (collider.TryGetComponent<IInfectable>(out IInfectable infectable)) {
+                float distanceToTarget = Vector3.Distance(transform.position, collider.transform.position);
+                if (distanceToTarget < _previousDistance) {
+                    _previousDistance = distanceToTarget;
+                    _target = infectable;
+                    _agent.SetDestination(collider.transform.position);
+                }
+            }
+        }
+
         if (IsStopped()) {
             CurrentState = VillagerStates.Idle;
-            if (!_villagerVisible) {
-                // Stopped at player
-                Player.Instance.Infect();
+            if (_target == null) {
+                return;
+            }
+            else {
+                _target.Infect();
+                _target = null;
             }
         }
         else {
             CurrentState = VillagerStates.Running;
         }
 
-        // Check if the villager is close any other villager and infect them
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _searchRadius, _villagerLayer);
-        if (colliders.Length <= 0) {
-            // If no villagers in search radius follow the player
-            SetDestinationToPlayer();
-            _villagerVisible = false;
-        }
-        else {
-            _villagerVisible = true;
-            foreach (Collider collider in colliders) {
-                if (collider.TryGetComponent<IInfectable>(out IInfectable infectable)) {
-                    _agent.SetDestination(collider.transform.position);
-                    if (IsStopped()) {
-                        infectable.Infect();
-                    }
-                }
-            }
-        }
-    }
-
-    private void SetDestinationToPlayer() {
-        // Get the player's position
-        Vector3 playerPosition = Player.Instance.transform.position;
-        _agent.SetDestination(playerPosition);
     }
 }
